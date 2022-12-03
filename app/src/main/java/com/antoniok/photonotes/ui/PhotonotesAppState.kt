@@ -28,14 +28,10 @@ fun rememberPhotonotesAppState(
 }
 
 @Stable
-class PhotonotesAppState(
-    val navController: NavHostController
-) {
-
+class PhotonotesAppState(val navController: NavHostController) {
 
     val currentDestination: NavDestination?
         @Composable get() = navController.currentBackStackEntryAsState().value?.destination
-
 
     val currentTopLevelDestination: TopLevelDestination?
         @Composable get() = when (currentDestination?.route) {
@@ -43,7 +39,7 @@ class PhotonotesAppState(
             else -> null
         }
 
-    var shouldShowNewNoteDialog by mutableStateOf(false)
+    var shouldOpenCamera by mutableStateOf(false)
         private set
 
     val topLevelDestinations: List<TopLevelDestination> = TopLevelDestination.values().asList()
@@ -64,8 +60,7 @@ class PhotonotesAppState(
                 popUpTo(navController.graph.findStartDestination().id) {
                     saveState = true
                 }
-                // Avoid multiple copies of the same destination when
-                // reselecting the same item
+                // Avoid multiple copies of the same destination when reselecting the same item
                 launchSingleTop = true
                 // Restore state when reselecting a previously selected item
                 restoreState = true
@@ -81,8 +76,8 @@ class PhotonotesAppState(
         navController.popBackStack()
     }
 
-    fun setShowNewNoteDialog(shouldShow: Boolean) {
-        shouldShowNewNoteDialog = shouldShow
+    fun setOpenCamera(shouldShow: Boolean) {
+        shouldOpenCamera = shouldShow
     }
 
 }

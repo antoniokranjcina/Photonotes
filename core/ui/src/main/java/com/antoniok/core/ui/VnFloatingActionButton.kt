@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.dp
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun VnFloatingActionButton(
+fun PnFloatingActionButton(
     onShortClick: () -> Unit,
     onLongClick: () -> Unit,
     modifier: Modifier = Modifier,

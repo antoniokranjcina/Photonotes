@@ -26,8 +26,10 @@ import androidx.compose.ui.zIndex
 import com.antoniok.core.designsystem.component.PnTopAppBar
 import com.antoniok.core.designsystem.icon.PnIcons
 import com.antoniok.core.designsystem.theme.PnTheme
-import com.antoniok.core.ui.VnFloatingActionButton
+import com.antoniok.core.ui.PnFloatingActionButton
 import com.antoniok.photonotes.navigation.PnNavHost
+
+private const val TOP_BAR_Z_INDEX = -1F
 
 @OptIn(
     ExperimentalMaterial3Api::class,
@@ -55,7 +57,7 @@ fun PhotonotesApp(
                         // overlap it. This means that the top most item in the nav rail
                         // won't be tappable. A workaround is to position the top app bar
                         // behind the nav rail using zIndex.
-                        modifier = Modifier.zIndex(-1F),
+                        modifier = Modifier.zIndex(TOP_BAR_Z_INDEX),
                         titleRes = destination.titleTextId,
                         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                             containerColor = Color.Transparent
@@ -64,9 +66,9 @@ fun PhotonotesApp(
                 }
             },
             floatingActionButton = {
-                if (appState.currentTopLevelDestination != null) {
-                    VnFloatingActionButton(
-                        onShortClick = { appState.setShowNewNoteDialog(true) },
+                appState.currentTopLevelDestination?.let {
+                    PnFloatingActionButton(
+                        onShortClick = { appState.setOpenCamera(true) },
                         onLongClick = {
                             // TODO show two choices:
                             //  1.) voice note
@@ -86,8 +88,8 @@ fun PhotonotesApp(
                         WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal)
                     )
             ) {
-                if (appState.shouldShowNewNoteDialog) {
-                    // Show save dialog
+                if (appState.shouldOpenCamera) {
+                    // Open camera here
                 }
 
                 PnNavHost(
