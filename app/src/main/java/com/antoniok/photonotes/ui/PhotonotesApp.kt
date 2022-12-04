@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
@@ -24,9 +23,12 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.zIndex
 import com.antoniok.core.designsystem.component.PnTopAppBar
+import com.antoniok.core.designsystem.component.fab.MultiFabItem
+import com.antoniok.core.designsystem.component.fab.MultiFloatingActionButton
+import com.antoniok.core.designsystem.component.fab.multiFabItems
+import com.antoniok.core.designsystem.icon.PnIcon
 import com.antoniok.core.designsystem.icon.PnIcons
 import com.antoniok.core.designsystem.theme.PnTheme
-import com.antoniok.core.ui.PnFloatingActionButton
 import com.antoniok.photonotes.navigation.PnNavHost
 
 private const val TOP_BAR_Z_INDEX = -1F
@@ -67,16 +69,19 @@ fun PhotonotesApp(
             },
             floatingActionButton = {
                 appState.currentTopLevelDestination?.let {
-                    PnFloatingActionButton(
-                        onShortClick = { appState.setOpenCamera(true) },
-                        onLongClick = {
-                            // TODO show two choices:
-                            //  1.) voice note
-                            //  2.) text note
+                    MultiFloatingActionButton(
+                        fabIcon = PnIcon.ImageVectorIcon(PnIcons.Add),
+                        items = multiFabItems,
+                        toState = appState.fabState,
+                        showLabels = true,
+                        stateChanged = { appState.fabState = it },
+                        onFabItemClicked = {
+                            when (it) {
+                                MultiFabItem.PHOTO -> {}
+                                MultiFabItem.TEXT -> {}
+                            }
                         }
-                    ) {
-                        Icon(imageVector = PnIcons.Add, contentDescription = null)
-                    }
+                    )
                 }
             },
             floatingActionButtonPosition = FabPosition.End,

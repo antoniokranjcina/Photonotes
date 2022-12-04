@@ -35,6 +35,8 @@ android {
 
 dependencies {
 
+    implementation project(path: ':core:common')
+
     // Core
     implementation "androidx.core:core-ktx:$core_ktx_version"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$android_lifecycle_ktx_version"

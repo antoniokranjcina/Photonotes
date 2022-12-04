@@ -19,7 +19,7 @@ object PnIcons {
 /**
  * A sealed class to make dealing with [ImageVector] and [DrawableRes] icons easier.
  */
-sealed class Icon {
-    data class ImageVectorIcon(val imageVector: ImageVector) : Icon()
-    data class DrawableResourceIcon(@DrawableRes val id: Int) : Icon()
+sealed class PnIcon {
+    data class ImageVectorIcon(val imageVector: ImageVector) : PnIcon()
+    data class DrawableResourceIcon(@DrawableRes val id: Int) : PnIcon()
 }

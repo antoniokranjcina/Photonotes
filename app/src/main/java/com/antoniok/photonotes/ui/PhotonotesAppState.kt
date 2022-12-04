@@ -13,6 +13,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import androidx.tracing.trace
+import com.antoniok.core.designsystem.component.fab.MultiFabState
 import com.antoniok.feature.notes.navigation.navigateToNotes
 import com.antoniok.feature.notes.navigation.notesNavigationRoute
 import com.antoniok.photonotes.navigation.TopLevelDestination
@@ -38,6 +39,8 @@ class PhotonotesAppState(val navController: NavHostController) {
             notesNavigationRoute -> TopLevelDestination.NOTES
             else -> null
         }
+
+    var fabState: MultiFabState by mutableStateOf(MultiFabState.COLLAPSED)
 
     var shouldOpenCamera by mutableStateOf(false)
         private set
